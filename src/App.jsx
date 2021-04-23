@@ -1,45 +1,25 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "./states/actions";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const dispatch = useDispatch();
+  const counter = useSelector(state => state.counter);
 
-  return (
-    <div className="container bg-red-300">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+  const onBtnClick = () => {
+    dispatch(actions.increment(2));
+  }
+  const onBtnClick2 = () => {
+    dispatch(actions.decrement(1));
+  }
+  return(
+    <div className="container p-3 mx-auto flex flex-col">
+    HI {counter}
+    <button onClick={onBtnClick}>Increase</button>
+    <button onClick={onBtnClick2}>Decrease</button>
+  </div>
+  );
+
 }
 
 export default App
