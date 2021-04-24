@@ -1,25 +1,33 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import NewUser from "./components/NewUser";
+import EditUser from "./components/EditUser";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "./states/actions";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const counter = useSelector(state => state.counter);
-
-  const onBtnClick = () => {
-    dispatch(actions.increment(2));
-  }
-  const onBtnClick2 = () => {
-    dispatch(actions.decrement(1));
-  }
-  return(
-    <div className="container p-3 mx-auto flex flex-col">
-    HI {counter}
-    <button onClick={onBtnClick}>Increase</button>
-    <button onClick={onBtnClick2}>Decrease</button>
-  </div>
+  return (
+    <Router>
+      <div className="container p-3 mx-auto flex">
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/newuser">
+            <NewUser></NewUser>
+          </Route>
+          <Route path="/edituser/:id">
+            <EditUser></EditUser>
+          </Route>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
+};
 
-}
-
-export default App
+export default App;
