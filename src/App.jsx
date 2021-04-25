@@ -6,6 +6,7 @@ import NewUser from "./components/NewUser";
 import EditUser from "./components/EditUser";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "./states/actions";
+import { isLoggedIn } from "./utils";
 
 const App = () => {
   return (
