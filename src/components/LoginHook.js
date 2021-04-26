@@ -28,9 +28,7 @@ const useLoginHook = () => {
         saveToken(data.token);
         history.push(HOME_PAGE);
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch(function (error) {});
   };
 
   return {

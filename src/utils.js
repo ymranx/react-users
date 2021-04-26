@@ -17,9 +17,14 @@ const saveToken = (token) => {
   setItemToLocalStorage(LOGIN_TOKEN, token);
 };
 
+const validateEmptyFields = (...args) => {
+  return !args.some((field) => field == "");
+};
+
 export {
   setItemToLocalStorage,
   getItemFromLocalStorage,
   isLoggedIn,
   saveToken,
+  validateEmptyFields,
 };

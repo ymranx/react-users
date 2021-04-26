@@ -8,6 +8,7 @@ import {
   userDeleted,
 } from "../states/actions";
 import { NEWUSER_PAGE, EDITUSER_PAGE, HOME_PAGE } from "../constants";
+import { validateEmptyFields } from "../utils";
 
 const useUserHook = () => {
   const dispatch = useDispatch();
@@ -38,21 +39,27 @@ const useUserHook = () => {
   const readSearchInput = (setSearchkeyword) => (ev) => {
     setSearchkeyword(ev.target.value);
   };
-  const handleSubmitNewUser = (userData) => (ev) => {
-    addUser(userData)
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(userAdded(data));
-        history.push(HOME_PAGE);
-      });
+  const handleSubmitNewUser = (userData) => () => {
+    const { first_name, last_name, email } = userData;
+    if (validateEmptyFields(first_name, last_name, email)) {
+      addUser(userData)
+        .then((res) => res.data)
+        .then((data) => {
+          dispatch(userAdded(data));
+          history.push(HOME_PAGE);
+        });
+    }
   };
-  const handleSubmitEditUser = (userData) => (ev) => {
-    updateUser(userData, userData.id)
-      .then((res) => res.data)
-      .then((data) => {
-        dispatch(userUpdated(data));
-        history.push(HOME_PAGE);
-      });
+  const handleSubmitEditUser = (userData) => () => {
+    const { first_name, last_name, email } = userData;
+    if (validateEmptyFields(first_name, last_name, email)) {
+      updateUser(userData, userData.id)
+        .then((res) => res.data)
+        .then((data) => {
+          dispatch(userUpdated(data));
+          history.push(HOME_PAGE);
+        });
+    }
   };
   const handleSubmitDelUser = (userId) => (ev) => {
     const confirmDelete = confirm(`Confirm delete user: ${userId}?`);
