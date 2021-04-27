@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { isLoggedIn, saveToken } from "../utils";
+import { isLoggedIn, saveToken, validateEmptyFields } from "../utils";
 import { LOGIN_PAGE, HOME_PAGE } from "../constants";
 import { loginUser } from "../httpRequests";
 
@@ -23,12 +23,14 @@ const useLoginHook = () => {
     setPassword(ev.target.value);
   };
   const performLogin = () => {
-    loginUser(email, password)
-      .then(({ data }) => {
-        saveToken(data.token);
-        history.push(HOME_PAGE);
-      })
-      .catch(function (error) {});
+    if (validateEmptyFields(email, password)) {
+      loginUser(email, password)
+        .then(({ data }) => {
+          saveToken(data.token);
+          history.push(HOME_PAGE);
+        })
+        .catch(function (error) {});
+    }
   };
 
   return {
