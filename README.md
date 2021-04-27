@@ -10,7 +10,7 @@ Dev server
 
 Run Tests
 
-    npm run jest
+    npm run test
 
 Build
 
