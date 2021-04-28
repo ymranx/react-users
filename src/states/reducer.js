@@ -2,12 +2,6 @@ import * as actionTypes from "./actionTypes";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actionTypes.Increment:
-      return { ...state, counter: state.counter + action.payload.value };
-
-    case actionTypes.Decrement:
-      return { ...state, counter: state.counter - action.payload.value };
-
     case actionTypes.USER_FETCHED:
       return { ...state, users: action.payload.users };
     case actionTypes.USER_ADDED:

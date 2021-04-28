@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUsers, addUser, updateUser, deleteUser } from "../httpRequests";
+import { addUser, updateUser, deleteUser } from "../httpRequests";
 import {
-  userFetched,
+  userFetchAsync,
   userAdded,
   userUpdated,
   userDeleted,
@@ -16,11 +16,7 @@ const useUserHook = () => {
   const userList = useSelector((state) => state.users);
 
   const fetchUsers = () => {
-    getUsers()
-      .then((res) => res.data)
-      .then(({ data }) => {
-        dispatch(userFetched(data));
-      });
+    dispatch(userFetchAsync());
   };
   const getUserFromState = (userId) => {
     const user = userList.filter((usr) => usr.id == userId);

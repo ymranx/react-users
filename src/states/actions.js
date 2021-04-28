@@ -1,21 +1,5 @@
 import * as actionTypes from "./actionTypes";
-
-export function increment(value) {
-  return {
-    type: actionTypes.Increment,
-    payload: {
-      value,
-    },
-  };
-}
-export function decrement(value) {
-  return {
-    type: actionTypes.Decrement,
-    payload: {
-      value,
-    },
-  };
-}
+import { getUsers } from "../httpRequests";
 
 export function userFetched(data) {
   return {
@@ -25,7 +9,16 @@ export function userFetched(data) {
     },
   };
 }
-
+// thunk
+export function userFetchAsync() {
+  return (dispatch) => {
+    getUsers()
+      .then((res) => res.data)
+      .then(({ data }) => {
+        dispatch(userFetched(data));
+      });
+  };
+}
 export function userAdded(data) {
   return {
     type: actionTypes.USER_ADDED,
